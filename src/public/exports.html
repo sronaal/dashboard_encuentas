@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportar Encuestas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head>
+<body class="bg-gray-100 flex">
+    <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+        <div class="text-white text-2xl font-bold px-4">
+            <i class="fas fa-chart-pie mr-2"></i> Encuestas
+        </div>
+        <nav>
+            <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                <i class="fas fa-home mr-2"></i> Inicio
+            </a>
+            <a href="./exports.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+                <i class="fas fa-file-export mr-2"></i> Exportar
+            </a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <!-- Mobile Menu Button -->
+        <div class="bg-gray-800 text-white flex justify-between md:hidden">
+            <div class="p-4">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <i class="fas fa-bars fa-2x"></i>
+                </button>
+            </div>
+            <h1 class="text-2xl font-bold p-4">Módulo Estadísticas</h1>
+        </div>
+
+        <!-- Header -->
+        <header class="bg-white shadow p-4 flex justify-between items-center hidden md:flex">
+            <div class="flex items-center space-x-4">
+                <img src="https://via.placeholder.com/40" alt="Logo" class="h-10 w-10 rounded-full">
+                <h1 class="text-2xl font-bold text-gray-800">Módulo Estadísticas Llamadas PBX Asistemyca</h1>
+            </div>
+            <div>
+                <!-- Aquí podrías agregar más opciones si las necesitas -->
+            </div>
+        </header>
+
+        <main class="container mx-auto p-6">
+            <!-- Cards Section with Smaller Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <!-- Total Encuestas Recibidas -->
+                <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold">Total Encuestas Recibidas</h3>
+                        <p class="text-2xl mt-2">1,200</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-inbox fa-lg"></i>
+                    </div>
+                </div>
+
+                <!-- Total Encuestas Contestadas -->
+                <div class="bg-orange-500 text-black p-4 rounded-lg shadow-lg flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold">Total Encuestas Contestadas</h3>
+                        <p class="text-2xl mt-2">850</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-check-circle fa-lg"></i>
+                    </div>
+                </div>
+
+                <!-- Total Encuestas No Contestadas -->
+                <div class="bg-gray-500 text-white p-4 rounded-lg shadow-lg flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold">Total Encuestas No Contestadas</h3>
+                        <p class="text-2xl mt-2">350</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-times-circle fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+
+    <div class="flex-1 flex flex-col">
+        <!-- Mobile Menu Button -->
+        <div class="bg-gray-800 text-white flex justify-between md:hidden">
+            <div class="p-4">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <i class="fas fa-bars fa-2x"></i>
+                </button>
+            </div>
+            <h1 class="text-2xl font-bold p-4">Exportar Encuestas</h1>
+        </div>
+
+        <main class="container mx-auto p-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h1 class="text-2xl font-bold mb-4">Exportar Encuestas</h1>
+
+                <!-- Filtros -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <input type="date" id="filterDate" class="p-2 border border-gray-300 rounded">
+                    <select id="filterQuestion" class="p-2 border border-gray-300 rounded">
+                        <option value="">Seleccionar pregunta</option>
+                        <option value="¿Cómo califica el servicio?">¿Cómo califica el servicio?</option>
+                        <option value="¿Recomendaría nuestro servicio?">¿Recomendaría nuestro servicio?</option>
+                    </select>
+                    <select id="filterAnswer" class="p-2 border border-gray-300 rounded">
+                        <option value="">Seleccionar respuesta</option>
+                        <option value="8/10">8/10</option>
+                        <option value="Sí">Sí</option>
+                    </select>
+                    <button id="exportCSV" class="bg-blue-500 text-white p-2 rounded-lg">Exportar a CSV</button>
+                </div>
+
+                <!-- Tabla -->
+                <table class="w-full text-left table-auto">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="py-2 px-4 border">Fecha de Encuesta</th>
+                            <th class="py-2 px-4 border">Pregunta</th>
+                            <th class="py-2 px-4 border">Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="surveyTableBody">
+                        <tr>
+                            <td class="border-t py-2 px-4">2024-08-15</td>
+                            <td class="border-t py-2 px-4">¿Cómo califica el servicio?</td>
+                            <td class="border-t py-2 px-4">8/10</td>
+                        </tr>
+                        <tr>
+                            <td class="border-t py-2 px-4">2024-08-16</td>
+                            <td class="border-t py-2 px-4">¿Recomendaría nuestro servicio?</td>
+                            <td class="border-t py-2 px-4">Sí</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const filterDateInput = document.getElementById('filterDate');
+        const filterQuestionInput = document.getElementById('filterQuestion');
+        const filterAnswerInput = document.getElementById('filterAnswer');
+        const surveyTableBody = document.getElementById('surveyTableBody');
+
+        filterDateInput.addEventListener('input', filterTable);
+        filterQuestionInput.addEventListener('change', filterTable);
+        filterAnswerInput.addEventListener('change', filterTable);
+
+        function filterTable() {
+            const filterDate = filterDateInput.value;
+            const filterQuestion = filterQuestionInput.value.toLowerCase();
+            const filterAnswer = filterAnswerInput.value.toLowerCase();
+
+            const rows = surveyTableBody.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const dateCell = rows[i].getElementsByTagName('td')[0].textContent;
+                const questionCell = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+                const answerCell = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+
+                if ((!filterDate || dateCell.includes(filterDate)) && 
+                    (!filterQuestion || questionCell.includes(filterQuestion)) && 
+                    (!filterAnswer || answerCell.includes(filterAnswer))) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        document.getElementById('exportCSV').addEventListener('click', function() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Fecha de Encuesta,Pregunta,Respuesta\n";
+
+            const rows = surveyTableBody.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const dateCell = rows[i].getElementsByTagName('td')[0].textContent;
+                const questionCell = rows[i].getElementsByTagName('td')[1].textContent;
+                const answerCell = rows[i].getElementsByTagName('td')[2].textContent;
+
+                if (rows[i].style.display !== 'none') {
+                    csvContent += `${dateCell},${questionCell},${answerCell}\n`;
+                }
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'encuestas.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    </script>
+</body>
+</html>
